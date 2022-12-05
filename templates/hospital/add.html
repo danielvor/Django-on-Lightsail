@@ -1,0 +1,80 @@
+{% extends 'hospital/base.html' %}
+
+<!-- block title -->
+{% block title %}ADD Patients {% endblock title %}
+<!-- Navbar content -->
+{% block navbar-content %}
+    <i class="fas fa-user-plus"></i> &nbsp;&nbsp; Add Patient
+{% endblock navbar-content %}
+
+<!-- Button on navbar -->
+{% block nav-btn %}
+    <a href="{% url 'logout' %}" class="btn btn-outline-danger text-light border-light btn-sm" id="btn-nav">Logout</a>
+{% endblock nav-btn %}
+
+<!-- =============== CONTENT PAGE =============== -->
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card card-body border-dark mt-5">                
+                <span class="text-center">{% block card-title %} <span class="text-primary">FILL OUT THE FORM BELOW</span>{% endblock card-title %}</span>                
+            </div>
+
+            <!-- FORM -->
+            <form {% block action %} action="/hospital/add_patient" {% endblock action %} method="POST" enctype="multipart/form-data" class="card p-3 border-dard mt-3">
+                {% csrf_token %}
+                
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text side-label">Name</span>
+                    <input type="text" class="form-control" name="name" placeholder="Patient Name" required {% block Value-name %} {% endblock Value-name %}>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text side-label">Phone</span>
+                    <input type="text" class="form-control" name="phone" placeholder="Patient Phone" required {% block Value-phone %} {% endblock Value-phone %}>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text side-label">Email</span>
+                    <input type="email" class="form-control" name="email" placeholder="Patient email" required {% block Value-email %} {% endblock Value-email %}>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text side-label">Age</span>
+                    <input type="text" class="form-control" name="age" placeholder="Patient age" required {% block Value-age %} {% endblock Value-age %}>
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <label class="input-group-text side-label">Gender</label>
+                    <select name="gender" class="form-select" required {% block Value-gender %} {% endblock Value-gender %}>
+
+                        {% block option %}
+                        <option value="" hidden>Select the Gender</option>
+                        {% endblock option %}
+
+                        <option disabled></option>
+                        <option>M</option>
+                        <option>F</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control" name="note" rows="7" placeholder="Description is optional...">{% block Value-note %} {% endblock Value-note %}</textarea>
+                </div>
+
+                <div class="d-grid gap-2 mt-2">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        {% block btn-content %}<i class="fas fa-plus">&nbsp;&nbsp; Add</i>{% endblock btn-content %}
+                    </button>
+
+                    <!-- Reset Button -->
+                    {% block btn-reset %}
+                    {% endblock btn-reset %}
+
+                    <a href="{% url 'backend' %}" class="btn btn-dark btn-sm"><i class="fas fa-crevron-left">&nbsp;&nbsp; Back</i></a>
+                </div>
+                    <!-- Input ID_denied -->
+                    {% block id_hidden %}
+                    {% endblock id_hidden %}                
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
